@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+table {
+    margin: auto;
+    margin-top: 20px;
+    border: solid 2px #3D3C3A;
+}
+td {
+    width: 20px;
+    height: 20px;
+}
+
+#title {
+    margin-top: 20px;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+}
+#score {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+}
+#fruit {
+    background-color: red;
+    width: 100%;
+    height: 100%;
+}
+#mainTable {
+    border-spacing: 0px;
+}
+
+.snakeBody {
+    background-color: black;
+    width: 100%;
+    height: 100%;
+}
