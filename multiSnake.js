@@ -4,15 +4,13 @@ function Game(numOfPlayers, heightOfBoard, widthOfBoard, haveWalls) {
     this.widthOfBoard = widthOfBoard;
     this.haveWalls = haveWalls;
     this.snakes = [];
+    this.stillPlaying = true;
 };
 
 function Board(haveWalls) {};
 
-function Snake(name, heightOfBoard, widthOfBoard) {
-    // name should be 1 or 2, depending on the number of players.
+function Snake(name) {
     this.name = name;
-    this.heightOfBoard = heightOfBoard;
-    this.widthOfBoard = widthOfBoard;
     this.eating = false;
     this.gameOver = false;
     this.score = 0;
@@ -29,9 +27,9 @@ function Snake(name, heightOfBoard, widthOfBoard) {
         this.currentDirection = "right";
     } else {
         this.snakeBody = [
-            (this.widthOfBoard - 1) + "|" + (this.heightOfBoard - 1),
-            (this.widthOfBoard - 2) + "|" + (this.heightOfBoard - 1),
-            (this.widthOfBoard - 3) + "|" + (this.heightOfBoard - 1)
+            (game.widthOfBoard - 1) + "|" + (game.heightOfBoard - 1),
+            (game.widthOfBoard - 2) + "|" + (game.heightOfBoard - 1),
+            (game.widthOfBoard - 3) + "|" + (game.heightOfBoard - 1)
             ];
         this.currentDirection = "left";
     };
@@ -42,17 +40,14 @@ function Fruit() {};
 Game.prototype = {
     newGame: function() {
         var self = this;
-        // Create board
         this.board = new Board(this.haveWalls);
         this.board.init(this.heightOfBoard, this.widthOfBoard);
-        // Create snakes
         for (i = 0; i < this.numOfPlayers; i++) {
             var snake = new Snake(i + 1, this.heightOfBoard, this.widthOfBoard);
             snake.init();
             this.snakes.push(snake);
         };
         this.addControls();
-        // Add fruit
         var fruit = new Fruit();
         fruit.init();
         this.interval = setInterval(function() {
@@ -214,15 +209,15 @@ Snake.prototype = {
     addSnakePart: function(id) {
         var tableCell = findCell(id);
         var snakePart = document.createElement("div");
-        snakePart.setAttribute("class", "snakeBody");
+        snakePart.setAttribute("class", "snakeBody" + this.name);
         tableCell.appendChild(snakePart);
     },
     hitWall: function(position) {
         var x = getX(position);
         var y = getY(position);
-        if (x < 0 || x >= this.widthOfBoard)
+        if (x < 0 || x >= game.widthOfBoard)
             return true;
-        if (y < 0 || y >= this.heightOfBoard)
+        if (y < 0 || y >= game.heightOfBoard)
             return true;
         return false;
     },
@@ -246,8 +241,6 @@ Snake.prototype = {
         scoreDiv.innerHTML = this.score;
     },
     removeSnakePart: function(position) {
-        var positionX = getX(position);
-        var positionY = getY(position);
         var tableCell = findCell(position);
         tableCell.innerHTML = "";
     },
@@ -263,28 +256,28 @@ Snake.prototype = {
         var firstPart = this.snakeBody[this.snakeBody.length - 1];
         var nextPartX = parseInt(getX(firstPart)) + this.directions[this.currentDirection][0];
         var nextPartY = parseInt(getY(firstPart)) + this.directions[this.currentDirection][1];
-        console.log("First next move: " + nextPartX + "|" + nextPartY);
         if (game.haveWalls == false) {
             if (nextPartX < 0) {
-                nextPartX = this.widthOfBoard - 1;
-            } else if (nextPartX > this.widthOfBoard - 1) {
+                nextPartX = game.widthOfBoard - 1;
+            } else if (nextPartX > game.widthOfBoard - 1) {
                 nextPartX = 0;
             } else if (nextPartY < 0) {
-                nextPartY = this.heightOfBoard - 1;
-            } else if (nextPartY > this.heightOfBoard - 1) {
+                nextPartY = game.heightOfBoard - 1;
+            } else if (nextPartY > game.heightOfBoard - 1) {
                 nextPartY = 0;
             };
         } else {
             if (this.hitWall(nextPartX + "|" + nextPartY) == true) {
                 this.gameOver = true;
+                game.stillPlaying = false;
             }
         }
         var nextPart = nextPartX + "|" + nextPartY;
-        console.log("Second next move: " + nextPart)
         if (this.bodyHit(nextPart, secondSnake) == true) {
             this.gameOver = true;
+            game.stillPlaying = false;
         };
-        if (this.gameOver != true) {
+        if (this.gameOver != true && game.stillPlaying == true) {
             this.checkForFruit(nextPart);
             if (this.eating != true) {
                 this.snakeBody.shift();
@@ -293,9 +286,7 @@ Snake.prototype = {
             this.addSnakePart(nextPart);
             this.snakeBody.push(nextPart);
             this.eating = false;
-        } else {
-            this.gameOver = true;
-        }
+        };
     },
 };
 
@@ -308,5 +299,5 @@ Fruit.prototype = {
     }
 };
 
-var game = new Game(2, 30, 30, true);
+var game = new Game(2, 30, 30, false);
 game.newGame();
