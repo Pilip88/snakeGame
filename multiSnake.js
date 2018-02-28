@@ -8,7 +8,7 @@ function Game(numOfPlayers, heightOfBoard, widthOfBoard, haveWalls) {
     this.speed = 100;
 };
 
-function Board(haveWalls) {};
+function Board() {};
 
 function Snake(name) {
     this.name = name;
