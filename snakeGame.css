@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: Arial;
 }
 table {
     margin: auto;
@@ -26,10 +27,7 @@ a {
 #home_page {
     display: block;
 }
-#one_player_settings_page {
-    display: none;
-}
-#two_player_settings_page {
+#settings {
     display: none;
 }
 #game_page {

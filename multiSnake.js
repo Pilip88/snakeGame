@@ -65,19 +65,14 @@ Game.prototype = {
                     if (self.snakes.length > 1) {
                         self.ending(self.snakes[i].name);
                     } else {
-                        self.ending();
+                        self.ending(undefined, self.snakes[0].score);
                     };
                 };
             };
         }, this.speed)
     },
-    ending: function(nameOfSnake) {
-        //if (nameOfSnake != undefined) {
-        //    document.body.innerHTML = "Player " + nameOfSnake + " lose!";
-        //} else {
-        //    document.body.innerHTML = "game over";
-        //};
-        gameOver()
+    ending: function(nameOfSnake, score) {
+        gameOver(nameOfSnake, score)
     },
     addControls: function() {
         var self = this;
@@ -301,5 +296,3 @@ Fruit.prototype = {
         emptyCell.appendChild(fruit);
     }
 };
-//var game = new Game(2, 30, 30, false);
-//game.newGame();

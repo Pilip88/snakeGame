@@ -1,12 +1,10 @@
-var onePlayerButton = document.getElementById("one_player_button");
-var twoPlayerButton = document.getElementById("two_player_button");
-var startButtons = document.getElementsByName("start_button");
+var startGameButton = document.getElementById("start_button");
+var newGameButton = document.getElementById("new_game_button");
 var playAgainYesButton = document.getElementById("yesButton");
 var playAgainNoButton = document.getElementById("noButton");
 
 var homePage = document.getElementById("home_page");
-var onePlayerSettingsPage = document.getElementById("one_player_settings_page");
-var twoPlayerSettingsPage = document.getElementById("two_player_settings_page");
+var settingsPage = document.getElementById("settings");
 var gamePage = document.getElementById("game_page");
 var gameOverPage = document.getElementById("game_over");
 
@@ -16,16 +14,11 @@ var boardDimensions = {
     "large": 35,
 };
 
-onePlayerButton.onclick = function(e) {
+newGameButton.onclick = function(e) {
     e.preventDefault();
     homePage.style.display = "none";
-    onePlayerSettingsPage.style.display = "block";
-};
-twoPlayerButton.onclick = function(e) {
-    e.preventDefault();
-    homePage.style.display = "none";
-    twoPlayerSettingsPage.style.display = "block";
-};
+    settingsPage.style.display = "block";
+}
 playAgainYesButton.onclick = function(e) {
     e.preventDefault();
     document.getElementById("board").innerHTML = "";
@@ -41,42 +34,51 @@ playAgainNoButton.onclick = function(e) {
     var board = document.getElementById("board");
     board.innerHTML = "";
 };
-for (var k = 0; k < startButtons.length; k++) {
-    startButtons[k].onclick = function(e) {
-        e.preventDefault();
-        var haveWalls;
-        var size;
-        var form = document.getElementById("form" + this.id[this.id.length - 1]);
-        var wallOptions = form.elements["haveWalls"];
-        var sizeOptions = form.elements["size"];
-        var numberOfPlayers = this.id[this.id.length - 1];
-        for (var i = 0; i < wallOptions.length; i++) {
-            if (wallOptions[i].checked == true) {
-                if (wallOptions[i].value == "true"){
-                    haveWalls = true;
-                } else {
-                    haveWalls = false;
-                }
+
+startGameButton.onclick = function(e) {
+    e.preventDefault();
+    var numberOfPlayers;
+    var haveWalls;
+    var size;
+    var form = document.getElementById("settings_form");
+    var numberOfPlayersOptions = form.elements["number_of_players"];
+    var wallOptions = form.elements["have_walls"];
+    var sizeOptions = form.elements["size"];
+    for (var i = 0; i < numberOfPlayersOptions.length; i++) {
+        if (numberOfPlayersOptions[i].checked == true) {
+            numberOfPlayers = numberOfPlayersOptions[i].value;
+        };
+    };
+    for (var j = 0; j < wallOptions.length; j++) {
+        if (wallOptions[j].checked == true) {
+            if (wallOptions[j].value == "true") {
+                haveWalls = true;
+            } else {
+                haveWalls = false;
             };
         };
-        for (var j = 0; j < sizeOptions.length; j++) {
-            if (sizeOptions[j].checked == true) {
-                size = sizeOptions[j].value;
-            }
-        };
-        onePlayerSettingsPage.style.display = "none";
-        twoPlayerSettingsPage.style.display = "none";
-        gamePage.style.display = "block";
-        game = new Game(numberOfPlayers, boardDimensions[size], boardDimensions[size], haveWalls);
-        game.newGame();
-        lastSettings = [numberOfPlayers, boardDimensions[size], haveWalls];
     };
+    for (var k = 0; k < sizeOptions.length; k++) {
+        if (sizeOptions[k].checked == true) {
+            size = sizeOptions[k].value;
+        };
+    };
+    settingsPage.style.display = "none";
+    gamePage.style.display = "block";
+    game = new Game(numberOfPlayers, boardDimensions[size], boardDimensions[size], haveWalls);
+    game.newGame();
+    lastSettings = [numberOfPlayers, boardDimensions[size], haveWalls];
 };
 
-var gameOver = function() {
+var gameOver = function(name, score) {
+    var endScore = document.getElementById("end_score");
     homePage.style.display = "none";
-    onePlayerSettingsPage.style.display = "none";
-    twoPlayerSettingsPage.style.display = "none";
+    settingsPage.style.display = "none";
     gamePage.style.display = "none";
     gameOverPage.style.display = "block";
-}
+    if (name != undefined) {
+        endScore.innerHTML = "Player " + name + " lose!";
+    } else {
+        endScore.innerHTML = "Your score is " + score;
+    };
+};
