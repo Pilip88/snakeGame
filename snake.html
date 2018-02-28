@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake</title>
+    <link rel="stylesheet" href="snakeGame.css">
+</head>
+<body>
+    <script type="text/javascript">
+        var game;
+        var lastSettings;
+    </script>
+    <div id="home_page">
+        <div id="title">
+            <h2>Snake</h2>
+        </div>
+        <br>
+        <br>
+        <br>
+        <ul>
+            <li><a href="" id="one_player_button">ONE PLAYER GAME</a></li>
+            <br>
+            <li><a href="" id="two_player_button">TWO PLAYER GAME</a></li>
+        </ul>
+    </div>
+    <div id="one_player_settings_page">
+        <div id="title">
+            <h2>Snake</h2>
+        </div>
+        <form action="" id="form1">
+            <h3>Choose if board have walls:</h3>
+            <input type="radio" name="haveWalls" value="true" checked=true>Yes<br>
+            <input type="radio" name="haveWalls" value="false">No<br>
+            <h3>Choose size of board:</h3>
+            <input type="radio" name="size" value="large">Large<br>
+            <input type="radio" name="size" value="medium" checked=true>Medium<br>
+            <input type="radio" name="size" value="small">Small<br>
+            <input type="hidden" name="num_of_players" id ="num_of_players1" value="1">
+            <br>
+            <br>
+            <input type="button" name="start_button" id="start_button1" value="Start game">
+        </form>
+    </div>
+    <div id="two_player_settings_page">
+        <div id="title">
+            <h2>Snake</h2>
+        </div>
+        <form action="" id="form2">
+        <h3>Choose if board have walls:</h3>
+            <input type="radio" name="haveWalls" value="true" checked=true>Yes<br>
+            <input type="radio" name="haveWalls" value="false">No<br>
+            <h3>Choose size of board:</h3>
+            <input type="radio" name="size" value="large">Large<br>
+            <input type="radio" name="size" value="medium" checked=true>Medium<br>
+            <input type="radio" name="size" value="small">Small<br>
+            <input type="hidden" name="num_of_players" id ="num_of_players2" value="2">
+            <br>
+            <br>
+            <input type="button" name="start_button" id="start_button2" value="Start game">
+        </form>
+    </div>
+    <div id="game_page">
+        <div id="title">
+            <h2>Snake</h2>
+        </div>
+        <div id="score">
+            <h3 id="currentScore">Score: <span id="setScore1">0</span></h3>
+            <h3 id="currentScore">Score: <span id="setScore2">0</span></h3>
+        </div>
+        <div id="board">
+
+        </div>
+        <script src="helperFunctions.js"></script>
+        <script src="multiSnake.js"></script>
+    </div>
+    <div id="game_over">
+        <div id="title">
+            <h2>Snake</h2>
+        </div>
+        <h2>Play again?</h2>
+        <input type="button" id="yesButton" value="Yes">
+        <input type="button" id="noButton" value="No">
+    </div>
+    <script src="page.js"></script>
+</body>
+</html>
