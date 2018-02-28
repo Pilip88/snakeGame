@@ -48,6 +48,11 @@ Game.prototype = {
             snake.init();
             this.snakes.push(snake);
         };
+        if (this.numOfPlayers == 1) {
+            document.getElementById("score2").innerHTML = "";
+        } else {
+            document.getElementById("score2").innerHTML = 'Player 2 score: <span id="setScore2">0</span>'
+        }
         this.addControls();
         var fruit = new Fruit();
         fruit.init();

@@ -21,6 +21,11 @@ newGameButton.onclick = function(e) {
 }
 playAgainYesButton.onclick = function(e) {
     e.preventDefault();
+    var scoreOne = document.getElementById("setScore1");
+    var scoreTwo = document.getElementById("setScore2");
+    scoreOne.innerHTML = 0;
+    if (scoreTwo != undefined)
+        scoreTwo.innerHTML = 0;
     document.getElementById("board").innerHTML = "";
     gameOverPage.style.display = "none";
     gamePage.style.display = "block";
@@ -29,6 +34,11 @@ playAgainYesButton.onclick = function(e) {
 };
 playAgainNoButton.onclick = function(e) {
     e.preventDefault();
+    var scoreOne = document.getElementById("setScore1");
+    var scoreTwo = document.getElementById("setScore2");
+    scoreOne.innerHTML = 0;
+    if (scoreTwo != undefined)
+        scoreTwo.innerHTML = 0;
     homePage.style.display = "block";
     gameOverPage.style.display = "none";
     var board = document.getElementById("board");
