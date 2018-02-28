@@ -24,15 +24,15 @@ function Snake(name) {
         left: [-1, 0]
     };
     if (this.name == 1) {
-        this.snakeBody = ["0|0", "1|0", "2|0"];
-        this.currentDirection = "right";
-    } else {
         this.snakeBody = [
             (game.widthOfBoard - 1) + "|" + (game.heightOfBoard - 1),
             (game.widthOfBoard - 2) + "|" + (game.heightOfBoard - 1),
             (game.widthOfBoard - 3) + "|" + (game.heightOfBoard - 1)
             ];
         this.currentDirection = "left";
+    } else {
+        this.snakeBody = ["0|0", "1|0", "2|0"];
+        this.currentDirection = "right";
     };
 };
 
