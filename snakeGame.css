@@ -11,7 +11,33 @@ td {
     width: 20px;
     height: 20px;
 }
+div {
+    text-align: center;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
 
+#home_page {
+    display: block;
+}
+#one_player_settings_page {
+    display: none;
+}
+#two_player_settings_page {
+    display: none;
+}
+#game_page {
+    display: none;
+}
+#game_over {
+    display: none;
+}
 #title {
     margin-top: 20px;
     height: 40px;
