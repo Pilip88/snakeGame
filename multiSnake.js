@@ -6,6 +6,8 @@ function Game(numOfPlayers, heightOfBoard, widthOfBoard, haveWalls) {
     this.snakes = [];
     this.stillPlaying = true;
     this.speed = 100;
+    this.area = heightOfBoard * widthOfBoard;
+    this.numberOfMoves = 0;
 };
 
 function Board() {};
@@ -207,6 +209,7 @@ Snake.prototype = {
         for (var i = 0; i < this.snakeBody.length; i++) {
             this.addSnakePart(this.snakeBody[i]);
         };
+        game.area = game.area - this.startSize;
     },
     addSnakePart: function(id) {
         var tableCell = findCell(id);
@@ -236,7 +239,7 @@ Snake.prototype = {
         this.addScore();
         newFruit = new Fruit();
         newFruit.init();
-        game.speed = game.speed - 10;
+        game.area = game.area - 1;
     },
     addScore: function() {
         var scoreDiv = document.getElementById("setScore" + this.name);
@@ -295,6 +298,10 @@ Snake.prototype = {
 
 Fruit.prototype = {
     init: function() {
+        if (game.area == 1) {
+            gameOver(undefined, undefined, true);
+            game.snakes[0].gameOver = true;
+        };
         var emptyCell = findEmptyCell(game.heightOfBoard, game.widthOfBoard);
         var fruit = document.createElement("div");
         fruit.setAttribute("id", "fruit");

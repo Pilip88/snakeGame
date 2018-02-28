@@ -80,15 +80,19 @@ startGameButton.onclick = function(e) {
     lastSettings = [numberOfPlayers, boardDimensions[size], haveWalls];
 };
 
-var gameOver = function(name, score) {
+var gameOver = function(name, score, gameFinished) {
     var endScore = document.getElementById("end_score");
+    if (gameFinished != undefined) {
+        endScore.innerHTML = "You won!";
+    } else {
+        if (name != undefined) {
+            endScore.innerHTML = "Player " + name + " lose!";
+        } else {
+            endScore.innerHTML = "Your score is " + score;
+        };
+    };
     homePage.style.display = "none";
     settingsPage.style.display = "none";
     gamePage.style.display = "none";
     gameOverPage.style.display = "block";
-    if (name != undefined) {
-        endScore.innerHTML = "Player " + name + " lose!";
-    } else {
-        endScore.innerHTML = "Your score is " + score;
-    };
 };
