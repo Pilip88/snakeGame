@@ -5,6 +5,7 @@ function Game(numOfPlayers, heightOfBoard, widthOfBoard, haveWalls) {
     this.haveWalls = haveWalls;
     this.snakes = [];
     this.stillPlaying = true;
+    this.speed = 100;
 };
 
 function Board(haveWalls) {};
@@ -68,14 +69,15 @@ Game.prototype = {
                     };
                 };
             };
-        }, 100)
+        }, this.speed)
     },
     ending: function(nameOfSnake) {
-        if (nameOfSnake != undefined) {
-            document.body.innerHTML = "Player " + nameOfSnake + " lose!";
-        } else {
-            document.body.innerHTML = "game over";
-        };
+        //if (nameOfSnake != undefined) {
+        //    document.body.innerHTML = "Player " + nameOfSnake + " lose!";
+        //} else {
+        //    document.body.innerHTML = "game over";
+        //};
+        gameOver()
     },
     addControls: function() {
         var self = this;
@@ -234,6 +236,7 @@ Snake.prototype = {
         this.addScore();
         newFruit = new Fruit();
         newFruit.init();
+        game.speed = game.speed - 10;
     },
     addScore: function() {
         var scoreDiv = document.getElementById("setScore" + this.name);
@@ -298,6 +301,5 @@ Fruit.prototype = {
         emptyCell.appendChild(fruit);
     }
 };
-
-var game = new Game(2, 30, 30, false);
-game.newGame();
+//var game = new Game(2, 30, 30, false);
+//game.newGame();
